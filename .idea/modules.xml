@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Scmb/Scmb.iml" filepath="$PROJECT_DIR$/Scmb/Scmb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScmbProject.iml" filepath="$PROJECT_DIR$/ScmbProject.iml" />
+    </modules>
+  </component>
+</project>
+
