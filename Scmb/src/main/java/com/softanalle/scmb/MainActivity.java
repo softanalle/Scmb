@@ -1,14 +1,21 @@
 package com.softanalle.scmb;
 
-import com.softanalle.scmb.util.SystemUiHider;
-
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+
+import com.google.code.microlog4android.Logger;
+import com.google.code.microlog4android.LoggerFactory;
+import com.google.code.microlog4android.config.PropertyConfigurator;
+import com.softanalle.scmb.ui.AreaSelector;
+import com.softanalle.scmb.ui.Preview;
+import com.softanalle.scmb.util.SystemUiHider;
+
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -45,14 +52,30 @@ public class MainActivity extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
+
+    private static final Logger logger = LoggerFactory.getLogger("MainActivity");
+
+    /* Area Selector */
+    private AreaSelector areaSelector_;
+    private FrameLayout rootLayout_;
+    private Preview mPreview;
+    private Button focusButton_, snapButton_;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTheme(android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
+        // configure micrologger4android library
+        PropertyConfigurator.getConfigurator(this).configure();
+
         setContentView(R.layout.activity_main);
 
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        final View contentView = findViewById(R.id.fullscreen_content);
+        //final View controlsView = findViewById(R.id.fullscreen_content_controls);
+        // final View contentView = findViewById(R.id.fullscreen_content);
+
+        /*
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -108,10 +131,29 @@ public class MainActivity extends Activity {
             }
         });
 
+        */
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        // findViewById(android.R.id.dummy_button1).setOnTouchListener(mDelayHideTouchListener);
+
+
+        mPreview = new Preview(this);
+        rootLayout_ = (FrameLayout) findViewById(R.id.root_display);
+        rootLayout_.addView(mPreview);
+        mPreview.startPreview();
+
+        snapButton_ = (Button) findViewById(R.id.snap_button);
+        focusButton_ = (Button) findViewById(R.id.focus_button);
+
+        areaSelector_ = (AreaSelector) findViewById(R.id.areaSelector1);
+        areaSelector_.setFocusable( true );
+
+        focusButton_.bringToFront();
+        snapButton_.bringToFront();
+        areaSelector_.bringToFront();
     }
 
     @Override
@@ -124,6 +166,16 @@ public class MainActivity extends Activity {
         delayedHide(100);
     }
 
+
+    protected void onPause() {
+        super.onPause();
+        logger.debug("MainActivity.onPause()");
+    }
+
+    protected void onResume() {
+        super.onResume();
+        logger.debug("MainActivity.onResume");
+    }
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -144,7 +196,7 @@ public class MainActivity extends Activity {
     Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
-            mSystemUiHider.hide();
+            // mSystemUiHider.hide();
         }
     };
 

@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_display"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
@@ -8,15 +9,30 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
+
+
+    <com.softanalle.scmb.ui.AreaSelector
+        android:id="@+id/areaSelector1"
         android:layout_height="match_parent"
-        android:keepScreenOn="true"
-        android:textColor="#33b5e5"
-        android:textStyle="bold"
-        android:textSize="50sp"
-        android:gravity="center"
-        android:text="@string/dummy_content" />
+        android:layout_width="match_parent" />
+
+    <Button
+        android:id="@+id/snap_button"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_height="50dp"
+        android:layout_width="120dp" />
+
+    <Button
+        android:id="@+id/focus_button"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_height="50dp"
+        android:layout_width="120dp" />
+
+    <com.softanalle.scmb.ui.LedIndicator
+        android:layout_height="@android:dimen/app_icon_size"
+        android:layout_width="@android:dimen/app_icon_size" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -33,7 +49,7 @@
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <Button android:id="@+id/dummy_button"
+            <Button android:id="@+id/dummy_button1"
                 style="?buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
